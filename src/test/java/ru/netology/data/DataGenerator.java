@@ -1,4 +1,4 @@
-package ru.netology.testmode.data;
+package ru.netology.data;
 
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
@@ -15,7 +15,7 @@ public class DataGenerator {
     private DataGenerator() {
     }
 
-    private static RequestSpecification requestSpec = new RequestSpecBuilder()
+    public static RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
             .setPort(9999)
             .setAccept(ContentType.JSON)

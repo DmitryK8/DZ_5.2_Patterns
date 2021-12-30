@@ -1,17 +1,15 @@
-package ru.netology.testmode.test;
+package ru.netology.test;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.netology.testmode.data.DataGenerator;
+import ru.netology.data.DataGenerator;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static ru.netology.testmode.data.DataGenerator.generateLogin;
-import static ru.netology.testmode.data.DataGenerator.generatePassword;
 
 class AuthTest {
 
@@ -25,6 +23,7 @@ class AuthTest {
     void shouldLoginRegisteredActiveUser() {
         Configuration.holdBrowserOpen = true;
         DataGenerator.UserInfo user = DataGenerator.Registration.generateUser("active");
+        DataGenerator.sendRequest(user);
         $(".input__box>[name='login']").setValue(user.getLogin());
         $(".input__box>[name='password']").setValue(user.getPassword());
         $(".button").click();
@@ -35,6 +34,7 @@ class AuthTest {
     void shouldLoginBlockedUser() {
         Configuration.holdBrowserOpen = true;
         DataGenerator.UserInfo user = DataGenerator.Registration.generateUser("blocked");
+        DataGenerator.sendRequest(user);
         $(".input__box>[name='login']").setValue(user.getLogin());
         $(".input__box>[name='password']").setValue(user.getPassword());
         $(".button").click();
@@ -45,7 +45,8 @@ class AuthTest {
     void shouldInvalidLogin() {
         Configuration.holdBrowserOpen = true;
         DataGenerator.UserInfo user = DataGenerator.Registration.generateUser("active");
-        var anotherLogin = generateLogin();
+        DataGenerator.sendRequest(user);
+        var anotherLogin = DataGenerator.generateLogin();
         $(".input__box>[name='login']").setValue(anotherLogin);
         $(".input__box>[name='password']").setValue(user.getPassword());
         $(".button").click();
@@ -56,7 +57,8 @@ class AuthTest {
     void shouldInvalidPassword() {
         Configuration.holdBrowserOpen = true;
         DataGenerator.UserInfo user = DataGenerator.Registration.generateUser("active");
-        var anotherPassword = generatePassword();
+        DataGenerator.sendRequest(user);
+        var anotherPassword = DataGenerator.generatePassword();
         $(".input__box>[name='login']").setValue(user.getLogin());
         $(".input__box>[name='password']").setValue(anotherPassword);
         $(".button").click();
