@@ -38,7 +38,7 @@ class AuthTest {
         $(".input__box>[name='login']").setValue(user.getLogin());
         $(".input__box>[name='password']").setValue(user.getPassword());
         $(".button").click();
-        $("[id='root']").shouldBe(exactText("Пользователь заблокирован"));
+        $(withText("Пользователь заблокирован")).shouldBe(Condition.visible);
     }
 
     @Test
@@ -50,7 +50,7 @@ class AuthTest {
         $(".input__box>[name='login']").setValue(anotherLogin);
         $(".input__box>[name='password']").setValue(user.getPassword());
         $(".button").click();
-        $(withText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
+        $("[class='notification__content']").shouldBe(exactText("Ошибка! Неверно указан логин или пароль"));
     }
 
     @Test
@@ -62,6 +62,6 @@ class AuthTest {
         $(".input__box>[name='login']").setValue(user.getLogin());
         $(".input__box>[name='password']").setValue(anotherPassword);
         $(".button").click();
-        $(withText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
+        $("[class='notification__content']").shouldBe(exactText("Ошибка! Неверно указан логин или пароль"));
     }
 }
